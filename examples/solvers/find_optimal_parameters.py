@@ -20,7 +20,7 @@ def optimal_parameters(reconstruction, fom, phantoms, data,
     Notes
     -----
     For a forward operator :math:`A : X \\to Y`, a reconstruction operator
-    parametrized by :math:`\\theta` is some operator 
+    parametrized by :math:`\\theta` is some operator
     :math:`R_\\theta : Y \\to X`
     such that
 
@@ -182,7 +182,7 @@ elif reconstruction_method == 'huber':
 elif reconstruction_method == 'tv':
     # Define the reconstruction operator for TV regularized reconstruction
     # The parameter to optimize is the regularization strength
-    # See chambolle_pock_tomography.py for more information.
+    # See pdhg_tomography.py for more information.
 
     def reconstruction(proj_data, lam):
         lam = float(lam)
@@ -209,9 +209,8 @@ elif reconstruction_method == 'tv':
 
         # Run the algorithm
         x = op.domain.zero()
-        odl.solvers.chambolle_pock_solver(
-            x, f, g, op, tau=1.0/op_norm, sigma=1.0/op_norm, niter=200,
-            gamma=0.3)
+        odl.solvers.pdhg(x, f, g, op, tau=1.0/op_norm, sigma=1.0/op_norm,
+                         niter=200)
 
         return x
 
