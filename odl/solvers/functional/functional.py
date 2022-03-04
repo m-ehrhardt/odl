@@ -561,7 +561,7 @@ class FunctionalRightScalarMult(Functional, OperatorRightScalarMult):
 
         Functional.__init__(
             self, space=func.domain, linear=func.is_linear,
-            grad_lipschitz=np.abs(scalar) * func.grad_lipschitz)
+            grad_lipschitz=np.abs(scalar)**2 * func.grad_lipschitz)
         OperatorRightScalarMult.__init__(self, operator=func, scalar=scalar)
 
     @property
